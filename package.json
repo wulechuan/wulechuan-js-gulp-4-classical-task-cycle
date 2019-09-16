@@ -1,8 +1,8 @@
 {
   "name": "@wulechuan/gulp-classical-task-cycle",
-  "author": "wulechuan@live.com",
+  "author": "wulechuan <wulechuan@live.com>",
   "license": "WTFPL",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Organize gulp tasks as task cycles. And these cycles should run in parallel. Can also build so-called high order tasks, upon multiple task cycles.",
   "main": "index.js",
   "scripts": {
@@ -37,10 +37,10 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wulechuan/wulechuan-js-gulp-classical-task-cycle.git"
+    "url": "git+https://github.com/wulechuan/wulechuan-js-gulp-4-classical-task-cycle.git"
   },
   "bugs": {
-    "url": "https://github.com/wulechuan/wulechuan-js-gulp-classical-task-cycle/issues"
+    "url": "https://github.com/wulechuan/wulechuan-js-gulp-4-classical-task-cycle/issues"
   },
-  "homepage": "https://github.com/wulechuan/wulechuan-js-gulp-classical-task-cycle#readme"
+  "homepage": "https://github.com/wulechuan/wulechuan-js-gulp-4-classical-task-cycle#readme"
 }
