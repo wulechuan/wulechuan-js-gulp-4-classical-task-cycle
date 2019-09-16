@@ -21,12 +21,17 @@
 
 ```js
 const {
+    descriptionOfCoreTask,         // [optional] A string. Used for printing meaningful infos. BTW, if omitted, the built-in message works just fine.
+    descriptionOfInputsOfCoreTask, // [optional] A string. Used for printing meaningful infos. BTW, if omitted, the built-in message works just fine.
+
+
     sourceGlobs: { // [required] An object.
         rootFolderPath: sourceGlobsRootFolderPath, // [required] A path string relative to `process.env.PWD`.
         relativeGlobsSharedWithOtherTaskCycles,    // [optional] An array of path strings, each relative to `rootFolderPath` above.
         relativeGlobsSpecificallyForThisTaskCycle, // [required] An array of path strings, each relative to `rootFolderPath` above.
         extraSourceGlobsToWatch,                   // [optional] An array of path strings, each relative to `process.env.PWD`.
     },
+
 
     outputFiles: { // [required] An object.
         rootFolderPath: outputRootFolderPath,      // [required] A path string relative to `process.env.PWD`.
@@ -60,10 +65,9 @@ const {
         },
     },
 
-    sourceContentFirstProcessor,   // [optional] A function, e.g. `gulp-stylus`, `gulp-less`, `gulp-sass`, etc.
 
-    descriptionOfCoreTask,         // [optional] A string. Used for printing meaningful infos. BTW, if omitted, the built-in message works just fine.
-    descriptionOfInputsOfCoreTask, // [optional] A string. Used for printing meaningful infos. BTW, if omitted, the built-in message works just fine.
+    firstPipeForProcessingSources,   // [optional] A function, e.g. `gulp-stylus`, `gulp-less`, `gulp-sass`, etc.
+
 
     compressions: {
         /**
@@ -92,7 +96,7 @@ const {
         compressor2IsDisabled,              // [optional] A boolean. Default is `false`.
         compressor2,                        // [optional] A function.
         compressorOptions2,                 // [optional] Any thing the corresponding compressor accepts. Typically an object.
-    }
+    },
 
 
     taskBodies: { // [optional] An object.
