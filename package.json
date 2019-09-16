@@ -29,5 +29,18 @@
     "gulp": "^4.0.2",
     "gulp-pipe": "^1.0.4",
     "gulp-rename": "^1.4.0"
-  }
+  },
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wulechuan/wulechuan-js-gulp-classical-task-cycle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wulechuan/wulechuan-js-gulp-classical-task-cycle/issues"
+  },
+  "homepage": "https://github.com/wulechuan/wulechuan-js-gulp-classical-task-cycle#readme"
 }
