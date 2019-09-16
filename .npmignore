@@ -1,4 +1,6 @@
 .vscode
-test
+docs
+tests
 .eslintignore
 .eslintrc.js
+.markdownlint.json
