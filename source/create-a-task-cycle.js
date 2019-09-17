@@ -14,7 +14,7 @@ const {
     series: gulpBuildTaskSeries,
 } = require('gulp')
 
-const gulpArrayPipe = require('gulp-pipe')
+const buildGulpPipeFromArray = require('gulp-pipe')
 const rename = require('gulp-rename')
 const del = require('del')
 
@@ -507,38 +507,40 @@ module.exports = function createATaskCycle(options) {
     function toBuildSourceFilesTheDefaultWay() {
         console.log(`\n${descriptionOfCoreTask}`)
 
-        const pipe = [ gulpRead(sourceGlobs, {
+        const pipeSegments = [ gulpRead(sourceGlobs, {
             base: sourceGlobsRootFolderPath,
         }) ]
 
         if (firstPipeForProcessingSourcesIsProvided) {
-            pipe.push(firstPipeForProcessingSources())
+            pipeSegments.push(firstPipeForProcessingSources())
         }
 
         if (!shouldNotOutputUncompressedVersion) {
             if (compressor1IsProvidedAndAllowed) {
-                pipe.push(compressor1(compressorOptions1))
+                pipeSegments.push(compressor1(compressorOptions1))
             }
 
             if (!outputFilesAreInABatch) {
-                pipe.push(rename(outputFileName1))
+                pipeSegments.push(rename(outputFileName1))
             }
 
-            pipe.push(gulpWrite(outputFilesRootFolderPath))
+            pipeSegments.push(gulpWrite(outputFilesRootFolderPath))
         }
 
         if (!shouldNotOutputCompressedVersion) {
             if (compressor2IsProvidedAndAllowed) {
-                pipe.push(compressor2(compressorOptions2))
+                pipeSegments.push(compressor2(compressorOptions2))
             }
 
             if (!outputFilesAreInABatch) {
-                pipe.push(rename(outputFileName2))
+                pipeSegments.push(rename(outputFileName2))
             }
 
-            pipe.push(gulpWrite(outputFilesRootFolderPath))
+            pipeSegments.push(gulpWrite(outputFilesRootFolderPath))
         }
 
-        return gulpArrayPipe(pipe)
+        const thePipe = buildGulpPipeFromArray(pipeSegments)
+
+        return thePipe
     }
 }
