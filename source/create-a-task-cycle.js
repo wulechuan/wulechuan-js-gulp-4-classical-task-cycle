@@ -530,7 +530,15 @@ module.exports = function createATaskCycle(options) {
 
         if (!shouldNotOutputUncompressedVersion) {
             if (compressor1IsProvidedAndAllowed) {
-                pipeSegments.push(compressor1(compressorOptions1))
+                const pipeInstance = compressor1(compressorOptions1)
+                pipeSegments.push(pipeInstance)
+
+                pipeInstance.on('error', theError => {
+                    printErrosOfGulpPlugins(theError, {
+                        basePathToShortenPrintedFilePaths: sourceGlobsRootFolderPath,
+                    })
+                    pipeInstance.end()
+                })
             }
 
             if (!outputFilesAreInABatch) {
@@ -544,7 +552,15 @@ module.exports = function createATaskCycle(options) {
 
         if (!shouldNotOutputCompressedVersion) {
             if (compressor2IsProvidedAndAllowed) {
-                pipeSegments.push(compressor2(compressorOptions2))
+                const pipeInstance = compressor2(compressorOptions2)
+                pipeSegments.push(pipeInstance)
+
+                pipeInstance.on('error', theError => {
+                    printErrosOfGulpPlugins(theError, {
+                        basePathToShortenPrintedFilePaths: sourceGlobsRootFolderPath,
+                    })
+                    pipeInstance.end()
+                })
             }
 
             if (!outputFilesAreInABatch) {
