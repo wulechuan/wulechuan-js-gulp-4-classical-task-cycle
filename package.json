@@ -35,12 +35,12 @@
     "test": "tests"
   },
   "devDependencies": {},
+  "homepage": "https://github.com/wulechuan/wulechuan-js-gulp-4-classical-task-cycle#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wulechuan/wulechuan-js-gulp-4-classical-task-cycle.git"
   },
   "bugs": {
     "url": "https://github.com/wulechuan/wulechuan-js-gulp-4-classical-task-cycle/issues"
-  },
-  "homepage": "https://github.com/wulechuan/wulechuan-js-gulp-4-classical-task-cycle#readme"
+  }
 }
