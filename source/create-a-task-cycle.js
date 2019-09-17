@@ -19,7 +19,7 @@ const rename = require('gulp-rename')
 const del = require('del')
 
 const createErrorMessageBuildersFor = require('@wulechuan/meaningful-error-messages')
-const printErrosOfGulpPlugins       = require('@wulechuan/javascript-gulp-plugin-error-printer')
+const printErrosOfGulpPlugins       = require('@wulechuan/printer-for-errors-of-gulp-plugins')
 
 const {
     isNotANonEmptyString,
