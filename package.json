@@ -2,7 +2,7 @@
   "name": "@wulechuan/gulp-classical-task-cycle",
   "author": "wulechuan <wulechuan@live.com>",
   "license": "WTFPL",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Organize gulp tasks as task cycles. And these cycles should run in parallel. Can also build so-called high order tasks, upon multiple task cycles.",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "taskcycle"
   ],
   "dependencies": {
-    "@wulechuan/javascript-gulp-plugin-error-printer": "^1.0.4",
+    "@wulechuan/javascript-gulp-plugin-error-printer": "^1.2.0",
     "@wulechuan/meaningful-error-messages": "^0.1.4",
     "chalk": "^2.4.2",
     "del": "^5.1.0",
