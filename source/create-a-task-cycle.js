@@ -19,6 +19,7 @@ const rename = require('gulp-rename')
 const del = require('del')
 
 const createErrorMessageBuildersFor = require('@wulechuan/meaningful-error-messages')
+const printErrosOfGulpPlugins       = require('@wulechuan/javascript-gulp-plugin-error-printer')
 
 const {
     isNotANonEmptyString,
@@ -313,7 +314,7 @@ module.exports = function createATaskCycle(options) {
 
     const _relativeGlobsSharedWithOtherTaskCycles    = !Array.isArray(relativeGlobsSharedWithOtherTaskCycles)    ? [] : relativeGlobsSharedWithOtherTaskCycles
     const _relativeGlobsSpecificallyForThisTaskCycle = !Array.isArray(relativeGlobsSpecificallyForThisTaskCycle) ? [] : relativeGlobsSpecificallyForThisTaskCycle
-    const _extraSourceGlobsToWatch                 = !Array.isArray(extraSourceGlobsToWatch)                 ? [] : extraSourceGlobsToWatch
+    const _extraSourceGlobsToWatch                   = !Array.isArray(extraSourceGlobsToWatch)                   ? [] : extraSourceGlobsToWatch
 
     const allSourceRelativeGlobs = [
         ..._relativeGlobsSharedWithOtherTaskCycles,
@@ -441,23 +442,17 @@ module.exports = function createATaskCycle(options) {
     }
 
     if (isNotAFunction(taskBodies.cleanOldOutputs)) {
-        taskBodies.cleanOldOutputs = tocleanOldOutputsFilesTheDefaultWay
+        taskBodies.cleanOldOutputs = toCleanOldOutputsFilesTheDefaultWay
     }
 
 
-    if (isNotAFunction(taskBodies.buildNewOutputs)) {
-        taskBodies.buildNewOutputs = gulpBuildTaskSeries(
-            taskBodies.cleanOldOutputs,
-            toBuildSourceFilesTheDefaultWay
-        )
-    } else {
-        const providedFunction = taskBodies.buildNewOutputs
-        taskBodies.buildNewOutputs = gulpBuildTaskSeries(
-            taskBodies.cleanOldOutputs,
-            providedFunction
-        )
-    }
-
+    const providedBuildingFunction = taskBodies.buildNewOutputs
+    taskBodies.buildNewOutputs = gulpBuildTaskSeries(
+        taskBodies.cleanOldOutputs,
+        isAFunction(providedBuildingFunction)
+            ? providedBuildingFunction
+            : toBuildSourceFilesTheDefaultWay
+    )
 
     const taskCycle = {
         descriptionOfCoreTask,
@@ -498,7 +493,7 @@ module.exports = function createATaskCycle(options) {
 
 
 
-    function tocleanOldOutputsFilesTheDefaultWay() {
+    function toCleanOldOutputsFilesTheDefaultWay() {
         console.log(`\n${chalk.red('Deleting these files if exist')}:`)
         allPossibleOutputGlobs.forEach(filePath => console.log('    ', chalk.yellow(filePath)))
         return del(allPossibleOutputGlobs)
@@ -507,13 +502,31 @@ module.exports = function createATaskCycle(options) {
     function toBuildSourceFilesTheDefaultWay() {
         console.log(`\n${descriptionOfCoreTask}`)
 
-        const pipeSegments = [ gulpRead(sourceGlobs, {
+        const pipeSegments = []
+
+        // ---------------------------------------------------------------
+
+        const pipeOfReadingSource = gulpRead(sourceGlobs, {
             base: sourceGlobsRootFolderPath,
-        }) ]
+        })
+
+        pipeSegments.push(pipeOfReadingSource)
+
+        // ---------------------------------------------------------------
 
         if (firstPipeForProcessingSourcesIsProvided) {
-            pipeSegments.push(firstPipeForProcessingSources())
+            const pipeInstance = firstPipeForProcessingSources()
+            pipeInstance.on('error', theError => {
+                printErrosOfGulpPlugins(theError, {
+                    basePathToShortenPrintedFilePaths: sourceGlobsRootFolderPath,
+                })
+                pipeInstance.end()
+            })
+
+            pipeSegments.push(pipeInstance)
         }
+
+        // ---------------------------------------------------------------
 
         if (!shouldNotOutputUncompressedVersion) {
             if (compressor1IsProvidedAndAllowed) {
@@ -527,6 +540,8 @@ module.exports = function createATaskCycle(options) {
             pipeSegments.push(gulpWrite(outputFilesRootFolderPath))
         }
 
+        // ---------------------------------------------------------------
+
         if (!shouldNotOutputCompressedVersion) {
             if (compressor2IsProvidedAndAllowed) {
                 pipeSegments.push(compressor2(compressorOptions2))
@@ -538,6 +553,8 @@ module.exports = function createATaskCycle(options) {
 
             pipeSegments.push(gulpWrite(outputFilesRootFolderPath))
         }
+
+        // ---------------------------------------------------------------
 
         const thePipe = buildGulpPipeFromArray(pipeSegments)
 
