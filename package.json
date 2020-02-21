@@ -32,7 +32,7 @@
     "gulp-rename": "^1.4.0"
   },
   "directories": {
-    "doc": "docs",
+    "doc": "documents",
     "test": "tests"
   },
   "devDependencies": {},

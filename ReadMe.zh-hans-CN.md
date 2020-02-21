@@ -54,14 +54,14 @@ const taskCycleForMarkdownConversions = createATaskCycle({
     descriptionOfInputsOfCoreTask,
 
     sourceGlobs: {
-        rootFolderPath: 'docs/ref',
+        rootFolderPath: 'documents/ref',
         // relativeGlobsSharedWithOtherTaskCycles: [],
         relativeGlobsSpecificallyForThisTaskCycle: [ '**/*.md' ],
         extraSourceGlobsToWatch: [ 'config/markdown-conversion-options.js' ],
     },
 
     outputFiles: {
-        rootFolderPath: 'dist/docs/htmls',
+        rootFolderPath: 'dist/documents/htmls',
         forBatchOutputFiles: {
             relativeGlobsOfAllPossibleOutputs: [ '**/*.html' ],
         },
@@ -119,8 +119,8 @@ module.exports = create3HighOrderTasksUponMultipleTaskCycles({
 
 变成接口已详实。欢迎阅读。
 
-- [构建单个【任务循环】的编程接口](./docs/refs/en-US/api-create-a-task-cycle.md)
-- [从多个【任务循环】构建 3 个【高阶任务】的编程接口](./docs/refs/en-US/api-create-3-high-order-tasks-upon-multiple-task-cycles.md)
+- [构建单个【任务循环】的编程接口](./documents/refs/en-US/api-create-a-task-cycle.md)
+- [从多个【任务循环】构建 3 个【高阶任务】的编程接口](./documents/refs/en-US/api-create-3-high-order-tasks-upon-multiple-task-cycles.md)
 
 
 ## 未来计划

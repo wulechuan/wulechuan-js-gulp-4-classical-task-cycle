@@ -52,14 +52,14 @@ const taskCycleForMarkdownConversions = createATaskCycle({
     descriptionOfInputsOfCoreTask,
 
     sourceGlobs: {
-        rootFolderPath: 'docs/ref',
+        rootFolderPath: 'documents/ref',
         // relativeGlobsSharedWithOtherTaskCycles: [],
         relativeGlobsSpecificallyForThisTaskCycle: [ '**/*.md' ],
         extraSourceGlobsToWatch: [ 'config/markdown-conversion-options.js' ],
     },
 
     outputFiles: {
-        rootFolderPath: 'dist/docs/htmls',
+        rootFolderPath: 'dist/documents/htmls',
         forBatchOutputFiles: {
             relativeGlobsOfAllPossibleOutputs: [ '**/*.html' ],
         },
@@ -114,8 +114,8 @@ module.exports = create3HighOrderTasksUponMultipleTaskCycles({
 
 ## APIs
 
-- [APIs of `createATaskCycle` Method](./docs/refs/en-US/api-create-a-task-cycle.md)
-- [APIs of `create3HighOrderTasksUponMultipleTaskCycles` Method](./docs/refs/en-US/api-create-3-high-order-tasks-upon-multiple-task-cycles.md)
+- [APIs of `createATaskCycle` Method](./documents/refs/en-US/api-create-a-task-cycle.md)
+- [APIs of `create3HighOrderTasksUponMultipleTaskCycles` Method](./documents/refs/en-US/api-create-3-high-order-tasks-upon-multiple-task-cycles.md)
 
 
 ## TODOS
