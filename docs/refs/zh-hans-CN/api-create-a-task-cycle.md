@@ -68,6 +68,22 @@ const {
 
     firstPipeForProcessingSources,   // [optional] A function, e.g. `gulp-stylus`, `gulp-less`, `gulp-sass`, etc.
 
+    /*
+        [optional]
+        An array of options to apply when
+        invoking the `firstPipeForProcessingSources`.
+        There is a line read like this in my source code
+        (not exactly the way shown below, but similar):
+
+        firstPipeForProcessingSources.apply(null, optionsArrayToApplyForTheFirstPipe)
+
+        So, everyone who understands how "function.apply" work should know what to do.
+
+        If the provide value is NOT an array, then it will be automatically wrapped
+        by an array before its applied.
+    */
+    optionsArrayToApplyForTheFirstPipe,
+
 
     compressions: {
         /**
@@ -91,11 +107,11 @@ const {
 
         compressor1IsEnabled,               // [optional] A boolean. Default is `false`.
         compressor1,                        // [optional] A function.
-        compressorOptions1,                 // [optional] Any thing the corresponding compressor accepts. Typically an object.
+        compressorOptions1,                 // [optional] Anything the corresponding compressor accepts. Typically an object.
 
         compressor2IsDisabled,              // [optional] A boolean. Default is `false`.
         compressor2,                        // [optional] A function.
-        compressorOptions2,                 // [optional] Any thing the corresponding compressor accepts. Typically an object.
+        compressorOptions2,                 // [optional] Anything the corresponding compressor accepts. Typically an object.
     },
 
 

@@ -1,2 +1,2 @@
-const package = require('..')
-console.log(package)
+const thisPackage = require('..')
+console.log(thisPackage)

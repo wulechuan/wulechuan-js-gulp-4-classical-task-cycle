@@ -63,6 +63,7 @@ module.exports = function createATaskCycle(options) {
         sourceGlobs: sourceGlobsConfig,
         outputFiles,
         firstPipeForProcessingSources,
+        optionsArrayToApplyForTheFirstPipe,
     } = options
 
 
@@ -515,7 +516,11 @@ module.exports = function createATaskCycle(options) {
         // ---------------------------------------------------------------
 
         if (firstPipeForProcessingSourcesIsProvided) {
-            const pipeInstance = firstPipeForProcessingSources()
+            let argumentsToArray = optionsArrayToApplyForTheFirstPipe
+            if (!Array.isArray(argumentsToArray)) {
+                argumentsToArray = [ argumentsToArray ]
+            }
+            const pipeInstance = firstPipeForProcessingSources.apply(null, argumentsToArray)
             pipeInstance.on('error', theError => {
                 printErrosOfGulpPlugins(theError, {
                     basePathToShortenPrintedFilePaths: sourceGlobsRootFolderPath,
